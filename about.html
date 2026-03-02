@@ -1,1 +1,466 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About PIPS Pro™ - Property Inspection Profit System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        
+        body {
+            background: #f0f4f8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        
+        .about-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 20px 40px rgba(0, 31, 63, 0.25);
+            overflow: hidden;
+            border: 1px solid rgba(255,215,0,0.3);
+            position: relative;
+            background-image: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.98) 100%),
+                              url('https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=800');
+            background-size: cover;
+            background-blend-mode: overlay;
+        }
+        
+        .header {
+            background: rgba(11, 28, 63, 0.95);
+            color: white;
+            padding: 30px 30px 20px;
+            border-bottom: 4px solid #FFD700;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        
+        .header h1 span {
+            color: #FFD700;
+            font-weight: 300;
+            font-size: 1.2rem;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .header .byline {
+            font-size: 1rem;
+            color: #b0c4de;
+            margin-top: 10px;
+            border-left: 4px solid #FFD700;
+            padding-left: 15px;
+        }
+        
+        .nav-bar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #FFD700;
+        }
+        
+        .nav-links a {
+            color: #0B1C3F;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: #FFD700;
+        }
+        
+        .nav-links a:first-child {
+            margin-left: 0;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #0B1C3F;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #FFD700;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .section h3 {
+            color: #0B1C3F;
+            font-size: 1.3rem;
+            margin: 20px 0 10px;
+        }
+        
+        .section p {
+            color: #2c3e50;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: #f8fafd;
+            border-radius: 20px;
+            padding: 25px 20px;
+            text-align: center;
+            border-left: 4px solid #FFD700;
+            box-shadow: 0 4px 10px rgba(0,31,63,0.1);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card h4 {
+            color: #0B1C3F;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card p {
+            color: #5a6f7c;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+        
+        .tier-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .tier-box {
+            flex: 1;
+            min-width: 120px;
+            background: #0B1C3F;
+            color: white;
+            padding: 20px 15px;
+            border-radius: 20px;
+            text-align: center;
+            border-bottom: 4px solid #FFD700;
+        }
+        
+        .tier-box .tier-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #FFD700;
+        }
+        
+        .tier-box .tier-name {
+            font-weight: 600;
+            margin: 10px 0 5px;
+        }
+        
+        .tier-box .tier-desc {
+            font-size: 0.8rem;
+            color: #b0c4de;
+        }
+        
+        .pricing-table {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,31,63,0.15);
+            margin: 30px 0;
+        }
+        
+        .pricing-row {
+            display: grid;
+            grid-template-columns: 120px 1fr 100px;
+            border-bottom: 1px solid #e0e7ed;
+            padding: 15px 20px;
+        }
+        
+        .pricing-row:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-row.header {
+            background: #0B1C3F;
+            color: white;
+            font-weight: 600;
+            border-bottom: 2px solid #FFD700;
+        }
+        
+        .plan-name {
+            font-weight: 700;
+            color: #0B1C3F;
+        }
+        
+        .plan-price {
+            color: #FFD700;
+            font-weight: 700;
+            text-align: right;
+        }
+        
+        .btn-gold {
+            background: #FFD700;
+            color: #0B1C3F;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 40px;
+            cursor: pointer;
+            border: 2px solid #0B1C3F;
+            box-shadow: 0 8px 0 #0B1C3F;
+            transition: 0.1s;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #0B1C3F;
+        }
+        
+        .btn-secondary {
+            background: #7C9EB2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+        
+        .footer {
+            background: #0B1C3F;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-top: 3px solid #FFD700;
+        }
+        
+        .footer a {
+            color: #FFD700;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-links {
+            margin: 20px 0;
+        }
+        
+        .footer-links a {
+            color: #b0c4de;
+            margin: 0 10px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2rem; }
+            .content { padding: 25px; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .pricing-row { grid-template-columns: 1fr 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <div style="font-weight: 700; color: #0B1C3F;">PIPS Pro™</div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="/index.html">Launch App</a>
+            </div>
+        </div>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>PIPS Pro™ <span>Property Inspection Profit System</span></h1>
+            <div class="byline">By Ali Sekhr · London–Dubai</div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Hero Section -->
+            <div class="section" style="text-align: center;">
+                <h2>Transform Your Property Inspections</h2>
+                <p style="font-size: 1.2rem; max-width: 600px; margin: 20px auto;">The complete assessment platform for serious property investors and professional surveyors.</p>
+                <a href="/index.html" class="btn-gold"><i class="fas fa-arrow-right"></i> Launch the App</a>
+                <a href="#features" class="btn-secondary"><i class="fas fa-info-circle"></i> Learn More</a>
+            </div>
+            
+            <!-- What is PIPS Pro -->
+            <div class="section" id="features">
+                <h2>What is PIPS Pro?</h2>
+                <p>PIPS Pro™ (Property Inspection Profit System) is a comprehensive property assessment platform designed for property investors, surveyors, and inspection professionals. It provides 38 structured protocols across 5 tiers for evaluating properties using a rating‑based methodology (0‑10 scale).</p>
+                <p>The platform includes photo annotation with drawing tools, automated PDF report generation, and full assessment history. Unlike simple checklists, PIPS Pro™ gives you nuanced, data‑driven insights for better investment decisions.</p>
+            </div>
+            
+            <!-- Key Features -->
+            <div class="section">
+                <h2>Key Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h4>38 Protocols</h4>
+                        <p>Comprehensive coverage across 5 tiers, from foundation analysis to investment strategy</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-camera"></i>
+                        <h4>Photo Annotation</h4>
+                        <p>Capture and annotate photos with rectangles, circles, and text – attach to any assessment item</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>0-10 Rating System</h4>
+                        <p>Precise, weighted scoring for every dimension and item, with automatic overall calculation</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-file-pdf"></i>
+                        <h4>PDF Reports</h4>
+                        <p>Generate professional, branded reports instantly – share with clients and stakeholders</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-users"></i>
+                        <h4>Team Collaboration</h4>
+                        <p>Work together on assessments (Business tier) with role‑based access</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-paint-brush"></i>
+                        <h4>White‑Label Branding</h4>
+                        <p>Customise reports with your logo and colours (Business tier)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- The 5 Tiers -->
+            <div class="section">
+                <h2>The 5 Tiers of Assessment</h2>
+                <div class="tier-grid">
+                    <div class="tier-box">
+                        <div class="tier-number">T1</div>
+                        <div class="tier-name">Critical Foundation</div>
+                        <div class="tier-desc">6 protocols · weight 2.0</div>
+                    </div>
+                    <div class="tier-box">
+                        <div class="tier-number">T2</div>
+                        <div class="tier-name">Core Systems</div>
+                        <div class="tier-desc">8 protocols · weight 1.75</div>
+                    </div>
+                    <div class="tier-box">
+                        <div class="tier-number">T3</div>
+                        <div class="tier-name">Detailed Assessment</div>
+                        <div class="tier-desc">12 protocols · weight 1.5</div>
+                    </div>
+                    <div class="tier-box">
+                        <div class="tier-number">T4</div>
+                        <div class="tier-name">Advanced Analysis</div>
+                        <div class="tier-desc">8 protocols · weight 1.25</div>
+                    </div>
+                    <div class="tier-box">
+                        <div class="tier-number">T5</div>
+                        <div class="tier-name">Specialised</div>
+                        <div class="tier-desc">4 protocols · weight 1.0</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pricing Overview -->
+            <div class="section" id="pricing">
+                <h2>Simple, Transparent Pricing</h2>
+                <div class="pricing-table">
+                    <div class="pricing-row header">
+                        <div>Plan</div>
+                        <div>Features</div>
+                        <div>Price</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="plan-name">Freemium</div>
+                        <div>3 protocols · 3 assessments/month</div>
+                        <div class="plan-price">Free</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="plan-name">Basic</div>
+                        <div>14 protocols · 10 assessments/month</div>
+                        <div class="plan-price">£19.99/mo</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="plan-name">Pro</div>
+                        <div>26 protocols · unlimited assessments</div>
+                        <div class="plan-price">£99/mo</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="plan-name">Business</div>
+                        <div>All 38 protocols · team · white‑label</div>
+                        <div class="plan-price">£299/mo</div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9rem; color: #666;">Annual plans available with 16% discount. All plans include a 14‑day free trial.</p>
+            </div>
+            
+            <!-- Call to Action -->
+            <div style="text-align: center; margin: 50px 0 30px;">
+                <h3 style="color: #0B1C3F; margin-bottom: 20px;">Ready to get started?</h3>
+                <a href="/index.html" class="btn-gold"><i class="fas fa-rocket"></i> Launch App</a>
+                <a href="#contact" class="btn-secondary"><i class="fas fa-envelope"></i> Contact Sales</a>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div style="margin-bottom: 20px;">
+                <i class="fas fa-map-marker-alt" style="color: #FFD700;"></i> London · Dubai
+            </div>
+            <div class="footer-links">
+                <a href="/privacy.html">Privacy</a> |
+                <a href="/terms.html">Terms</a> |
+                <a href="/refund.html">Refund</a> |
+                <a href="/index.html">App</a> |
+                <a href="/about.html">About</a>
+            </div>
+            <div style="margin-top: 20px; font-size: 0.8rem; color: #b0c4de;">
+                © 2026 Property Inspection Profit System™ · By Ali Sekhr
+            </div>
+        </div>
+    </div>
+</body>
+</html>
