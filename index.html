@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>PIPS Pro™ · Property Inspection Profit System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -30,9 +29,7 @@
             max-width: 100%;
             min-height: 100vh;
             background: white;
-            border-radius: 0;
             box-shadow: 0 20px 40px rgba(0, 31, 63, 0.25);
-            border: 1px solid rgba(255,215,0,0.3);
             position: relative;
             background-image: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.98) 100%),
                               url('https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=800');
@@ -44,15 +41,12 @@
             background: rgba(11, 28, 63, 0.95);
             color: white;
             padding: 20px 20px 12px;
-            backdrop-filter: blur(2px);
             border-bottom: 3px solid #FFD700;
         }
         
         .header h1 {
             font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
         }
         
         .header h1 span {
@@ -65,9 +59,9 @@
         .header .byline {
             font-size: 0.85rem;
             color: #b0c4de;
-            margin-top: 4px;
             border-left: 3px solid #FFD700;
             padding-left: 10px;
+            margin-top: 4px;
         }
         
         .screen-container {
@@ -75,12 +69,10 @@
             min-height: 500px;
             background: rgba(255,255,255,0.7);
             backdrop-filter: blur(4px);
-            width: 100%;
         }
         
         .screen {
             display: none;
-            width: 100%;
         }
         
         .screen.active {
@@ -96,7 +88,6 @@
             position: sticky;
             bottom: 0;
             width: 100%;
-            z-index: 100;
         }
         
         .nav-item {
@@ -105,7 +96,6 @@
             font-size: 0.7rem;
             flex: 1;
             padding: 6px 0;
-            border-radius: 20px;
             cursor: pointer;
         }
         
@@ -113,52 +103,32 @@
             font-size: 1.5rem;
             display: block;
             margin-bottom: 2px;
-            color: #a0b9d4;
         }
         
         .nav-item.active {
-            color: #FFD700;
-            background: rgba(255,215,0,0.1);
-        }
-        
-        .nav-item.active i {
             color: #FFD700;
         }
         
         .btn {
             background: #0B1C3F;
-            border: none;
             color: white;
             padding: 14px 18px;
             border-radius: 40px;
             font-weight: 600;
             font-size: 1.1rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
             width: 100%;
             margin: 8px 0;
             border: 1px solid #FFD700;
-            box-shadow: 0 4px 6px rgba(0,31,63,0.3);
             cursor: pointer;
-        }
-        
-        .btn-small {
-            padding: 8px 12px;
-            font-size: 0.9rem;
-            width: auto;
         }
         
         .btn-secondary {
             background: #7C9EB2;
-            border-color: #0B1C3F;
         }
         
         .btn-gold {
             background: #FFD700;
             color: #0B1C3F;
-            border: 1px solid #0B1C3F;
         }
         
         .card {
@@ -166,232 +136,35 @@
             border-radius: 24px;
             padding: 16px;
             margin-bottom: 16px;
-            box-shadow: 0 4px 10px rgba(0,31,63,0.1);
             border-left: 6px solid #FFD700;
+        }
+        
+        input, select {
             width: 100%;
-        }
-        
-        .protocol-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .protocol-tier {
-            background: #0B1C3F;
-            color: #FFD700;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .protocol-weight {
-            background: #7C9EB2;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-        
-        .dimension-card {
-            background: #f8fafd;
-            border-radius: 16px;
-            padding: 16px;
-            margin: 16px 0;
-            border-left: 4px solid #7C9EB2;
-        }
-        
-        .dimension-title {
-            font-weight: 700;
-            color: #0B1C3F;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-        }
-        
-        .item-row {
-            background: white;
-            border-radius: 12px;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #e0e7ed;
-        }
-        
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .item-name {
-            font-weight: 600;
-            color: #0B1C3F;
-        }
-        
-        .item-rating {
-            width: 70px;
-            padding: 6px;
-            border: 2px solid #FFD700;
-            border-radius: 20px;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .red-flag-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 8px 0;
-            font-size: 0.9rem;
-        }
-        
-        .red-flag-checkbox input {
-            width: auto;
-            margin: 0;
-        }
-        
-        .item-photos {
-            margin-top: 12px;
-            padding: 12px;
-            background: #f0f4fa;
-            border-radius: 12px;
-        }
-        
-        .photo-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 10px 0;
-        }
-        
-        .photo-thumb {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 2px solid #FFD700;
-        }
-        
-        .photo-thumb-container {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .annotate-btn {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(11,28,63,0.8);
-            color: #FFD700;
-            font-size: 0.6rem;
-            text-align: center;
-            padding: 4px;
-            border-radius: 0 0 12px 12px;
-            cursor: pointer;
-        }
-        
-        .add-photo-btn {
-            background: #7C9EB2;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 8px 12px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-        
-        .save-draft-btn {
-            background: #7C9EB2;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin: 16px 0;
-            width: 100%;
-        }
-        
-        .modal {
-            position: fixed;
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            visibility: hidden;
-            opacity: 0;
-            transition: 0.2s;
-        }
-        
-        .modal.show {
-            visibility: visible;
-            opacity: 1;
-        }
-        
-        .modal-content {
-            background: white;
-            max-width: 90%;
-            width: 400px;
-            padding: 20px;
-            border-radius: 48px;
-            border: 4px solid #FFD700;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        
-        .annotation-modal {
-            width: 90%;
-            max-width: 800px;
-            background: #222;
-        }
-        
-        #annotation-canvas {
-            width: 100%;
-            background: #333;
-            border: 2px solid #FFD700;
-            border-radius: 16px;
-            cursor: crosshair;
-        }
-        
-        .toolbar {
-            display: flex;
-            gap: 8px;
-            margin: 8px 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .tool-btn {
-            background: #0B1C3F;
-            color: #FFD700;
-            border: 1px solid #FFD700;
-            padding: 8px 16px;
+            padding: 14px 16px;
+            border: 1px solid #7C9EB2;
             border-radius: 40px;
-            cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            margin: 8px 0;
         }
         
-        .tool-btn.active {
-            background: #FFD700;
+        label {
+            font-weight: 600;
             color: #0B1C3F;
-        }
-        
-        .resume-badge {
-            background: #FFD700;
-            color: #0B1C3F;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 0.7rem;
             margin-left: 8px;
+        }
+        
+        .protocol-item {
+            background: rgba(124,158,178,0.1);
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin: 6px 0;
+            border: 1px solid #7C9EB2;
+            cursor: pointer;
+        }
+        
+        .protocol-item.free {
+            border-left: 6px solid #FFD700;
         }
         
         .footer-links {
@@ -399,8 +172,6 @@
             padding: 10px;
             font-size: 0.8rem;
             background: rgba(255,255,255,0.5);
-            margin-top: 10px;
-            width: 100%;
         }
         
         .footer-links a {
@@ -409,29 +180,13 @@
             text-decoration: none;
         }
         
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e0e7ed;
-            border-radius: 4px;
-            margin: 10px 0;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: #FFD700;
-            border-radius: 4px;
-            width: 0%;
-        }
-        
         @media (min-width: 768px) {
             body {
                 padding: 8px;
             }
-            
             #app {
                 max-width: 480px;
-                border-radius: 36px 36px 24px 24px;
+                border-radius: 36px;
                 min-height: auto;
             }
         }
@@ -447,105 +202,61 @@
     <div class="screen-container" id="screenContainer">
         <!-- LOGIN SCREEN -->
         <div id="login-screen" class="screen active">
-            <div class="card" style="background: rgba(255,255,255,0.8);">
-                <h2 style="color:#0B1C3F; margin-bottom:20px;"><i class="fas fa-clipboard-check" style="color:#FFD700;"></i> Inspect with PIPS</h2>
+            <div class="card">
+                <h2 style="color:#0B1C3F; margin-bottom:20px;">🔍 Inspect with PIPS</h2>
                 <input type="email" id="login-email" placeholder="Email" value="demo@example.com">
                 <input type="password" id="login-password" placeholder="Password" value="password">
-                <button class="btn" id="login-btn"><i class="fas fa-sign-in-alt"></i> Log In</button>
+                <button class="btn" id="login-btn">Log In</button>
                 <p style="text-align:center; margin:10px;">or</p>
-                <button class="btn btn-secondary" id="register-btn"><i class="fas fa-user-plus"></i> Register</button>
-                <p style="font-size:0.8rem; margin-top:20px;">Demo: any email/password (localStorage)</p>
+                <button class="btn btn-secondary" id="register-btn">Register</button>
+                <p style="font-size:0.8rem; margin-top:20px;">Demo: any email/password</p>
             </div>
         </div>
 
         <!-- DASHBOARD -->
         <div id="dashboard-screen" class="screen">
             <div class="card">
-                <h3>Welcome back, <span id="user-name">Inspector</span> 👋</h3>
-                <p style="color:#0B1C3F;"><i class="fas fa-chart-line" style="color:#FFD700;"></i> This month: <span id="month-count">0</span> inspections</p>
-            </div>
-            <div class="card">
-                <h4>Quick actions</h4>
-                <button class="btn btn-gold" id="quick-new"><i class="fas fa-camera"></i> New Inspection</button>
-                <button class="btn btn-secondary" id="quick-reports"><i class="fas fa-file-pdf"></i> Recent Reports</button>
-            </div>
-            <div class="card">
-                <h4>Recent inspections</h4>
-                <ul id="recent-list" style="list-style:none;"></ul>
-            </div>
-            <div class="card">
-                <h4>Draft inspections</h4>
-                <ul id="draft-list" style="list-style:none;"></ul>
+                <h3>Welcome, <span id="user-name">Inspector</span> 👋</h3>
+                <button class="btn btn-gold" id="quick-new">+ New Inspection</button>
             </div>
         </div>
 
-        <!-- PROTOCOLS LIBRARY -->
+        <!-- PROTOCOLS -->
         <div id="protocols-screen" class="screen">
-            <div id="protocols-list-view">
-                <h3 style="color:#0B1C3F;">📋 Protocol Library</h3>
-                <p style="font-size:0.9rem;">First 3 free · <i class="fas fa-crown" style="color:#FFD700;"></i> Upgrade to Pro for full access</p>
-                <div id="protocol-list" class="protocol-list"></div>
-            </div>
-            <div id="protocol-detail-view" style="display: none;">
-                <button class="back-btn" id="back-to-protocols"><i class="fas fa-arrow-left"></i> Back to library</button>
-                <div id="protocol-detail-content"></div>
-            </div>
+            <h3>📋 Protocol Library</h3>
+            <div id="protocol-list"></div>
         </div>
 
         <!-- NEW INSPECTION -->
         <div id="new-inspection-screen" class="screen">
+            <h3>🏠 New Inspection</h3>
             <div class="card">
-                <h3>🏠 New Inspection</h3>
-                <label>Property address</label>
-                <input type="text" id="prop-address" placeholder="e.g., 123 Main St">
-                <label>Property type</label>
-                <select id="prop-type">
-                    <option>House</option>
-                    <option>Apartment</option>
-                    <option>Commercial</option>
+                <label>Address</label>
+                <input type="text" id="prop-address" placeholder="123 Main St">
+                
+                <label>Protocol</label>
+                <select id="inspection-protocol">
+                    <option value="">Select protocol...</option>
                 </select>
-                <label>Size (sq ft)</label>
-                <input type="number" id="prop-size" placeholder="2000">
-                <label>Age (years)</label>
-                <input type="number" id="prop-age" placeholder="15">
-                <label>Select protocol</label>
-                <select id="inspection-protocol"></select>
-                
-                <div id="progress-section" style="display: none;">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill"></div>
-                    </div>
-                    <p id="progress-text">0% complete</p>
-                </div>
-                
-                <div id="inspection-content"></div>
-                
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button class="btn btn-secondary btn-small" id="save-draft-btn"><i class="fas fa-save"></i> Save Draft</button>
-                    <button class="btn btn-gold btn-small" id="complete-inspection-btn"><i class="fas fa-check"></i> Complete</button>
-                </div>
             </div>
         </div>
 
         <!-- REPORTS -->
         <div id="reports-screen" class="screen">
-            <h3 style="color:#0B1C3F;">📁 Inspection Reports</h3>
+            <h3>📁 Reports</h3>
             <div id="reports-list"></div>
         </div>
 
         <!-- PROFILE -->
         <div id="profile-screen" class="screen">
             <div class="card">
-                <h4><i class="fas fa-user-circle"></i> Inspector Profile</h4>
-                <p><strong>Email:</strong> <span id="profile-email"></span></p>
-                <p><strong>Subscription Tier:</strong> <span id="sub-tier">Freemium (3 protocols)</span></p>
-                <p><small>Upgrades coming soon – stay tuned!</small></p>
-                <button class="btn btn-secondary" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log out</button>
+                <h4>Profile</h4>
+                <p>Email: <span id="profile-email"></span></p>
+                <button class="btn btn-secondary" id="logout-btn">Log out</button>
             </div>
         </div>
     </div>
 
-    <!-- BOTTOM NAV -->
     <div class="bottom-nav" id="bottom-nav" style="display: none;">
         <div class="nav-item" data-screen="dashboard"><i class="fas fa-home"></i>Home</div>
         <div class="nav-item" data-screen="protocols"><i class="fas fa-book"></i>Protocols</div>
@@ -554,384 +265,126 @@
         <div class="nav-item" data-screen="profile"><i class="fas fa-user"></i>Profile</div>
     </div>
 
-    <!-- FOOTER LINKS -->
     <div class="footer-links">
-        <a href="/about.html">About</a> |
-        <a href="/privacy.html">Privacy</a> |
-        <a href="/terms.html">Terms</a> |
-        <a href="/refund.html">Refund</a>
-        <p style="margin-top: 5px; color: #666;">© 2026 Property Inspection Profit System™ · By Ali Sekhr</p>
-    </div>
-</div>
-
-<!-- UPGRADE MODAL -->
-<div id="upgrade-modal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:#0B1C3F;">🔒 Protocol Locked</h3>
-        <p id="modal-text">This protocol requires Pro tier access.</p>
-        <button class="btn btn-gold" id="modal-upgrade">Upgrade (coming soon)</button>
-        <button class="btn" id="modal-close">Close</button>
-    </div>
-</div>
-
-<!-- ANNOTATION MODAL -->
-<div id="annotation-modal" class="modal">
-    <div class="modal-content annotation-modal" style="background:#2d2d2d; color:white;">
-        <h3 style="color:#FFD700;">Annotate Photo</h3>
-        <canvas id="annotation-canvas" width="400" height="300"></canvas>
-        <div class="toolbar">
-            <button class="tool-btn" id="tool-rect">Rectangle</button>
-            <button class="tool-btn" id="tool-circle">Circle</button>
-            <button class="tool-btn" id="tool-text">Text</button>
-            <button class="tool-btn" id="tool-save">Save & Close</button>
-            <button class="tool-btn" id="tool-cancel">Cancel</button>
-        </div>
-        <p style="font-size:0.8rem;">Rect: red, Circle: blue, Text: white. Click to draw.</p>
+        <a href="/about.html">About</a> | <a href="/privacy.html">Privacy</a> | <a href="/terms.html">Terms</a> | <a href="/refund.html">Refund</a>
+        <p>© 2026 Property Inspection Profit System™ · By Ali Sekhr</p>
     </div>
 </div>
 
 <script>
-(function() {
-    // ==================== COMPLETE PROTOCOLS DATA ====================
-    const protocolsData = [
-        // TIER 1 - Critical Foundation (6 protocols)
-        { 
-            id: 1, tier: 'T1', name: 'Strategic Assessment Protocol', 
-            description: 'Introduction to strategic property assessment methodology and framework',
-            weight: '2.0', free: true,
-            dimensions: [
-                { 
-                    name: 'Location Analysis',
-                    items: [
-                        'Transport Links: Proximity to public transport',
-                        'Local Amenities: Access to shops, schools, services',
-                        'Employment Hubs: Distance to major employment areas',
-                        'Future Development: Planned infrastructure and regeneration',
-                        'Area Reputation: Desirability and perception of location'
-                    ],
-                    redFlags: [
-                        'HIGH: High Crime Area: Location in high-crime neighborhood',
-                        'MEDIUM: Poor Transport Access: Limited public transport options',
-                        'HIGH: Declining Area: Evidence of area decline or deprivation'
-                    ]
-                },
-                {
-                    name: 'Market Positioning',
-                    items: [
-                        'Price Point: Property price relative to local market',
-                        'Target Demographic: Suitability for target buyer/tenant',
-                        'Competition Analysis: Similar properties in area',
-                        'Market Trends: Local market direction and momentum'
-                    ],
-                    redFlags: [
-                        'HIGH: Overpriced: Property significantly overpriced for area',
-                        'MEDIUM: Limited Demand: Weak demand for property type in area'
-                    ]
-                }
-            ]
-        },
-        { 
-            id: 2, tier: 'T1', name: 'Foundation Assessment Protocol', 
-            description: 'Comprehensive evaluation of foundation integrity and structural stability',
-            weight: '2.0', free: true,
-            dimensions: [
-                {
-                    name: 'Foundation Type & Construction',
-                    items: [
-                        'Foundation type identified (strip, raft, piled, etc.)',
-                        'Construction method and materials assessed',
-                        'Foundation depth and width evaluated',
-                        'Age and design standards considered',
-                        'Previous repairs or modifications documented'
-                    ],
-                    redFlags: [
-                        'CRITICAL: Unknown or inadequate foundation type for soil conditions',
-                        'HIGH: Evidence of poor construction quality or workmanship',
-                        'HIGH: Previous underpinning or foundation repairs'
-                    ]
-                },
-                {
-                    name: 'Settlement & Movement Assessment',
-                    items: [
-                        'Crack patterns analyzed (vertical, horizontal, diagonal)',
-                        'Crack widths measured and severity assessed',
-                        'Floor levels checked for differential settlement',
-                        'Door and window operation tested for distortion',
-                        'External ground levels and drainage slopes verified'
-                    ],
-                    redFlags: [
-                        'CRITICAL: Cracks wider than 5mm or progressive movement',
-                        'CRITICAL: Diagonal cracks at 45° angles (shear failure pattern)',
-                        'HIGH: Doors/windows binding or failing to close properly'
-                    ]
-                }
-            ]
-        },
-        { 
-            id: 3, tier: 'T1', name: 'Structural Movement & Subsidence Protocol', 
-            description: 'Assessment of structural movement, subsidence risks, and foundation settlement',
-            weight: '2.0', free: true,
-            dimensions: [
-                {
-                    name: 'Load-Bearing Elements',
-                    items: [
-                        'All load-bearing walls identified and inspected',
-                        'Columns and posts assessed for vertical alignment',
-                        'Beams and lintels checked for deflection or sagging',
-                        'Material condition evaluated (brick, concrete, steel, timber)',
-                        'Load paths traced from roof to foundations'
-                    ],
-                    redFlags: [
-                        'CRITICAL: Visible deflection or sagging in beams/lintels',
-                        'CRITICAL: Cracked or bulging load-bearing walls',
-                        'HIGH: Corroded steel beams or columns'
-                    ]
-                }
-            ]
-        },
-        { 
-            id: 4, tier: 'T1', name: 'Environmental Hazards Assessment Protocol', 
-            description: 'Identification and evaluation of environmental hazards and contamination risks',
-            weight: '2.0', free: false,
-            dimensions: [
-                {
-                    name: 'Flood Risk',
-                    items: [
-                        'Flood Zone: EA flood zone classification',
-                        'Historical Flooding: Past flooding events in area',
-                        'Drainage Systems: Quality of local drainage',
-                        'Flood Defenses: Presence of flood protection',
-                        'Insurance Availability: Ease of obtaining flood insurance'
-                    ],
-                    redFlags: [
-                        'CRITICAL: Flood Zone 3: High flood risk area',
-                        'CRITICAL: Previous Flooding: Property has flooded before',
-                        'CRITICAL: No Flood Insurance: Cannot obtain flood insurance'
-                    ]
-                }
-            ]
-        },
-        { 
-            id: 5, tier: 'T1', name: 'Investment Analysis Protocol', 
-            description: 'Financial analysis and investment viability assessment',
-            weight: '2.0', free: false,
-            dimensions: [
-                {
-                    name: 'Purchase Costs',
-                    items: [
-                        'Purchase Price: Property acquisition cost',
-                        'Stamp Duty: SDLT or LBTT payable',
-                        'Legal Fees: Conveyancing and legal costs',
-                        'Survey Costs: Building survey and valuations',
-                        'Mortgage Fees: Arrangement and broker fees'
-                    ],
-                    redFlags: [
-                        'MEDIUM: High Transaction Costs: Fees exceed 5% of purchase price',
-                        'MEDIUM: Additional SDLT: Subject to higher SDLT rates'
-                    ]
-                }
-            ]
-        },
-        { 
-            id: 6, tier: 'T1', name: 'Comparable Analysis Protocol', 
-            description: 'Market comparison and property valuation analysis',
-            weight: '2.0', free: false,
-            dimensions: [
-                {
-                    name: 'Sales Comparables',
-                    items: [
-                        'Recent Sales: Sales within last 6 months',
-                        'Price per Sq Ft: Average price per square foot',
-                        'Property Condition: Condition vs comparables',
-                        'Location Adjustment: Premium/discount for location',
-                        'Market Trend: Price direction in area'
-                    ],
-                    redFlags: [
-                        'HIGH: Overpriced: Price >10% above comparables',
-                        'MEDIUM: Falling Prices: Recent sales showing decline'
-                    ]
-                }
-            ]
-        },
-        // TIER 2 (sample - add more as needed)
-        { 
-            id: 7, tier: 'T2', name: 'Site Analysis System', 
-            description: 'Comprehensive site evaluation including location, access, and site constraints',
-            weight: '1.75', free: false,
-            dimensions: [
-                {
-                    name: 'Surface Defense',
-                    items: [
-                        'Gutters and downpipes: adequate capacity for roof area',
-                        'Gutters: proper alignment and fall',
-                        'Surface drains: gullies at low points and channel drains where needed',
-                        'Land grading: ground falls away from building (minimum 1:60 gradient)',
-                        'Hardscaping: permeable surfaces where possible with proper drainage'
-                    ],
-                    redFlags: [
-                        'HIGH: Overflowing gutters or water pooling near walls',
-                        'HIGH: Inadequate drainage capacity',
-                        'CRITICAL: Ground slopes towards building'
-                    ]
-                }
-            ]
+    // Simple working version
+    (function() {
+        // Mock protocols
+        const protocols = [
+            { id: 1, name: 'Strategic Assessment Protocol', tier: 'T1', free: true },
+            { id: 2, name: 'Foundation Assessment Protocol', tier: 'T1', free: true },
+            { id: 3, name: 'Structural Movement Protocol', tier: 'T1', free: true },
+            { id: 4, name: 'Environmental Hazards Protocol', tier: 'T1', free: false },
+            { id: 5, name: 'Investment Analysis Protocol', tier: 'T1', free: false },
+            { id: 6, name: 'Comparable Analysis Protocol', tier: 'T1', free: false },
+            { id: 7, name: 'Site Analysis System', tier: 'T2', free: false },
+            { id: 8, name: 'Load Path Assessment', tier: 'T2', free: false }
+        ];
+
+        // State
+        let currentUser = null;
+        const STORAGE_USER = 'pips_user';
+
+        // Load user
+        const savedUser = localStorage.getItem(STORAGE_USER);
+        if (savedUser) {
+            currentUser = JSON.parse(savedUser);
         }
-    ];
 
-    const protocols = protocolsData;
-
-    // ==================== LOCALSTORAGE KEYS ====================
-    const STORAGE_USER = 'pips_user';
-    const STORAGE_INSPECTIONS = 'pips_inspections';
-    const STORAGE_DRAFTS = 'pips_drafts';
-    const STORAGE_TOKEN = 'pips_token';
-
-    // ==================== STATE ====================
-    let currentUser = null;
-    let inspections = [];
-    let drafts = [];
-    let currentDraftId = null;
-    let currentItemPhotos = {};
-
-    // ==================== LOAD/SAVE ====================
-    function loadLocalData() {
-        const userJson = localStorage.getItem(STORAGE_USER);
-        if (userJson) currentUser = JSON.parse(userJson);
-        
-        const inspJson = localStorage.getItem(STORAGE_INSPECTIONS);
-        inspections = inspJson ? JSON.parse(inspJson) : [];
-        
-        const draftsJson = localStorage.getItem(STORAGE_DRAFTS);
-        drafts = draftsJson ? JSON.parse(draftsJson) : [];
-    }
-    
-    function saveLocalData() {
-        if (currentUser) localStorage.setItem(STORAGE_USER, JSON.stringify(currentUser));
-        localStorage.setItem(STORAGE_INSPECTIONS, JSON.stringify(inspections));
-        localStorage.setItem(STORAGE_DRAFTS, JSON.stringify(drafts));
-    }
-
-    loadLocalData();
-
-    // ==================== UI FUNCTIONS ====================
-    function showScreen(screenId) {
-        document.querySelectorAll('.screen-container > .screen').forEach(s => s.classList.remove('active'));
-        if (screenId === 'login') {
-            document.getElementById('login-screen').classList.add('active');
-            document.getElementById('bottom-nav').style.display = 'none';
-        } else {
-            document.getElementById('login-screen').classList.remove('active');
+        // UI Functions
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId + '-screen').classList.add('active');
-            document.getElementById('bottom-nav').style.display = 'flex';
+            
+            if (screenId === 'login') {
+                document.getElementById('bottom-nav').style.display = 'none';
+            } else {
+                document.getElementById('bottom-nav').style.display = 'flex';
+            }
+            
+            // Update nav active state
             document.querySelectorAll('.nav-item').forEach(item => {
-                if (item.dataset.screen === screenId) item.classList.add('active');
-                else item.classList.remove('active');
+                if (item.dataset.screen === screenId) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
             });
-        }
-    }
 
-    function updateDashboard() {
-        document.getElementById('user-name').innerText = currentUser?.name || 'Inspector';
-        
-        const monthInspections = inspections.filter(i => new Date(i.createdAt).getMonth() === new Date().getMonth());
-        document.getElementById('month-count').innerText = monthInspections.length;
-
-        const recentList = document.getElementById('recent-list');
-        const recent = inspections.slice(-3).reverse();
-        recentList.innerHTML = recent.length ? recent.map(i => 
-            `<li style="margin: 8px 0;"><i class="fas fa-home" style="color:#FFD700;"></i> ${i.propertyAddress || 'Unknown'} – ${new Date(i.createdAt).toLocaleDateString()}</li>`
-        ).join('') : '<li>No inspections yet</li>';
-
-        const draftList = document.getElementById('draft-list');
-        const activeDrafts = drafts.filter(d => d.status === 'draft');
-        draftList.innerHTML = activeDrafts.length ? activeDrafts.map(d => 
-            `<li style="margin: 8px 0; display: flex; justify-content: space-between; align-items: center;">
-                <span><i class="fas fa-pen" style="color:#FFD700;"></i> ${d.propertyAddress || 'Unknown'}</span>
-                <button class="btn-small resume-draft" data-id="${d.id}" style="padding: 4px 8px; font-size: 0.7rem;">Resume</button>
-            </li>`
-        ).join('') : '<li>No draft inspections</li>';
-
-        document.querySelectorAll('.resume-draft').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const draftId = e.target.dataset.id;
-                resumeDraft(draftId);
-            });
-        });
-    }
-
-    function updateReportsList() {
-        const container = document.getElementById('reports-list');
-        if (inspections.length === 0) {
-            container.innerHTML = '<p class="card">No saved reports.</p>';
-            return;
-        }
-        container.innerHTML = inspections.map((insp, index) => `
-            <div class="card" style="padding:12px;">
-                <div style="display:flex; justify-content:space-between;">
-                    <span><i class="fas fa-map-pin"></i> ${insp.propertyAddress || 'N/A'}</span>
-                    <span>${new Date(insp.createdAt).toLocaleDateString()}</span>
-                </div>
-                <p>${insp.propertyType || 'House'} · ${insp.protocolName || 'Standard Protocol'}</p>
-                <button class="btn btn-secondary view-report-btn" data-index="${index}" style="padding:6px; font-size:0.9rem;">View PDF</button>
-                <button class="btn delete-report-btn" data-index="${index}" style="padding:6px; background:#b22222;">Delete</button>
-            </div>
-        `).join('');
-
-        document.querySelectorAll('.view-report-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = e.target.dataset.index;
-                generatePDF(inspections[idx], true);
-            });
-        });
-
-        document.querySelectorAll('.delete-report-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = e.target.dataset.index;
-                inspections.splice(idx, 1);
-                saveLocalData();
-                updateReportsList();
-                updateDashboard();
-            });
-        });
-    }
-
-    function updateProfile() {
-        document.getElementById('profile-email').innerText = currentUser?.email || '';
-        document.getElementById('sub-tier').innerText = 'Freemium (3 protocols)';
-    }
-
-    function populateProtocolSelect() {
-        const select = document.getElementById('inspection-protocol');
-        select.innerHTML = '<option value="">Select a protocol...</option>';
-        protocols.forEach(p => {
-            const option = document.createElement('option');
-            option.value = p.id;
-            option.textContent = `${p.name} (${p.tier}) ${p.free ? '' : '🔒'}`;
-            select.appendChild(option);
-        });
-    }
-
-    function renderInspection(protocolId, draftData = null) {
-        const protocol = protocols.find(p => p.id == protocolId);
-        if (!protocol) return;
-
-        if (!protocol.free && currentUser?.tier !== 'pro') {
-            showUpgradeModal(protocol.name);
-            return;
+            // Load data for specific screens
+            if (screenId === 'protocols') loadProtocols();
+            if (screenId === 'profile') updateProfile();
         }
 
-        const container = document.getElementById('inspection-content');
-        let html = `<div class="protocol-header">
-            <span class="protocol-tier">${protocol.tier}</span>
-            <span class="protocol-weight">Weight: ${protocol.weight}</span>
-        </div>
-        <p style="margin-bottom: 16px;">${protocol.description}</p>`;
+        function loadProtocols() {
+            const container = document.getElementById('protocol-list');
+            let html = '';
+            protocols.forEach(p => {
+                html += `<div class="protocol-item ${p.free ? 'free' : ''}">
+                    <span><strong>${p.name}</strong> (${p.tier})</span>
+                    <span>${p.free ? '✓ Free' : '🔒 Pro'}</span>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
 
-        protocol.dimensions.forEach((dim, dimIdx) => {
-            html += `<div class="dimension-card">
-                <div class="dimension-title">${dim.name}</div>`;
+        function updateProfile() {
+            document.getElementById('profile-email').innerText = currentUser?.email || '';
+        }
 
-            dim.items.forEach((item, itemIdx) => {
-                const itemId = `item_${protocolId}_${dimIdx}_${itemIdx}`;
-                const savedRating = draftData?.ratings?.[`${dimIdx}_${itemIdx}`] || 5;
-                const savedRed
+        function loadProtocolSelect() {
+            const select = document.getElementById('inspection-protocol');
+            let options = '<option value="">Select protocol...</option>';
+            protocols.forEach(p => {
+                options += `<option value="${p.id}">${p.name} (${p.tier})${p.free ? '' : ' 🔒'}</option>`;
+            });
+            select.innerHTML = options;
+        }
+
+        // Event Listeners
+        document.getElementById('login-btn').addEventListener('click', () => {
+            const email = document.getElementById('login-email').value;
+            currentUser = { email: email, name: email.split('@')[0] };
+            localStorage.setItem(STORAGE_USER, JSON.stringify(currentUser));
+            document.getElementById('user-name').innerText = currentUser.name;
+            showScreen('dashboard');
+        });
+
+        document.getElementById('register-btn').addEventListener('click', () => {
+            document.getElementById('login-btn').click();
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            currentUser = null;
+            localStorage.removeItem(STORAGE_USER);
+            showScreen('login');
+        });
+
+        document.getElementById('quick-new').addEventListener('click', () => {
+            loadProtocolSelect();
+            showScreen('new-inspection');
+        });
+
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                showScreen(item.dataset.screen);
+            });
+        });
+
+        // Initialize
+        if (currentUser) {
+            document.getElementById('user-name').innerText = currentUser.name;
+            showScreen('dashboard');
+        } else {
+            showScreen('login');
+        }
+    })();
+</script>
+</body>
+</html>
