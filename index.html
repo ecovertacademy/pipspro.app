@@ -6,366 +6,251 @@
     <title>PIPS Pro™ · Property Inspection Profit System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-   <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-    }
-    
-    body {
-        background: #f0f4f8;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-    }
-    
-    #app {
-        width: 100%;
-        max-width: 100%;
-        min-height: 100vh;
-        background: white;
-        border-radius: 0;
-        box-shadow: 0 20px 40px rgba(0, 31, 63, 0.25);
-        border: 1px solid rgba(255,215,0,0.3);
-        position: relative;
-        background-image: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.98) 100%),
-                          url('https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=800');
-        background-size: cover;
-        background-blend-mode: overlay;
-        margin: 0 auto;
-    }
-    
-    .header {
-        background: rgba(11, 28, 63, 0.95);
-        color: white;
-        padding: 20px 20px 12px;
-        backdrop-filter: blur(2px);
-        border-bottom: 3px solid #FFD700;
-    }
-    
-    .header h1 {
-        font-size: 1.8rem;
-        font-weight: 700;
-        letter-spacing: -0.5px;
-        line-height: 1.2;
-    }
-    
-    .header h1 span {
-        color: #FFD700;
-        font-weight: 300;
-        font-size: 1rem;
-        display: block;
-    }
-    
-    .header .byline {
-        font-size: 0.85rem;
-        color: #b0c4de;
-        margin-top: 4px;
-        border-left: 3px solid #FFD700;
-        padding-left: 10px;
-    }
-    
-    .screen-container {
-        padding: 20px 16px 80px;
-        min-height: 500px;
-        background: rgba(255,255,255,0.7);
-        backdrop-filter: blur(4px);
-        width: 100%;
-    }
-    
-    .screen {
-        display: none;
-        width: 100%;
-    }
-    
-    .screen.active {
-        display: block;
-    }
-    
-    .bottom-nav {
-        display: flex;
-        justify-content: space-around;
-        background: rgba(11, 28, 63, 0.98);
-        padding: 8px 4px 12px;
-        border-top: 2px solid #FFD700;
-        position: sticky;
-        bottom: 0;
-        width: 100%;
-    }
-    
-    .nav-item {
-        color: #a0b9d4;
-        text-align: center;
-        font-size: 0.7rem;
-        transition: all 0.1s;
-        flex: 1;
-        padding: 6px 0;
-        border-radius: 20px;
-        cursor: pointer;
-    }
-    
-    .nav-item i {
-        font-size: 1.5rem;
-        display: block;
-        margin-bottom: 2px;
-        color: #a0b9d4;
-    }
-    
-    .nav-item.active {
-        color: #FFD700;
-        background: rgba(255,215,0,0.1);
-    }
-    
-    .nav-item.active i {
-        color: #FFD700;
-    }
-    
-    .btn {
-        background: #0B1C3F;
-        border: none;
-        color: white;
-        padding: 14px 18px;
-        border-radius: 40px;
-        font-weight: 600;
-        font-size: 1.1rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        width: 100%;
-        margin: 8px 0;
-        border: 1px solid #FFD700;
-        box-shadow: 0 4px 6px rgba(0,31,63,0.3);
-        cursor: pointer;
-    }
-    
-    .btn-secondary {
-        background: #7C9EB2;
-        border-color: #0B1C3F;
-    }
-    
-    .btn-gold {
-        background: #FFD700;
-        color: #0B1C3F;
-        border: 1px solid #0B1C3F;
-    }
-    
-    .card {
-        background: white;
-        border-radius: 24px;
-        padding: 16px;
-        margin-bottom: 16px;
-        box-shadow: 0 4px 10px rgba(0,31,63,0.1);
-        border-left: 6px solid #FFD700;
-        width: 100%;
-    }
-    
-    input, textarea, select {
-        width: 100%;
-        padding: 14px 16px;
-        border: 1px solid #7C9EB2;
-        border-radius: 40px;
-        font-size: 1rem;
-        margin: 8px 0;
-        background: rgba(255,255,255,0.9);
-    }
-    
-    label {
-        font-weight: 600;
-        color: #0B1C3F;
-        margin-left: 8px;
-    }
-    
-    .protocol-item {
-        background: rgba(124,158,178,0.1);
-        border-radius: 20px;
-        padding: 12px 16px;
-        margin: 6px 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border: 1px solid #7C9EB2;
-        cursor: pointer;
-    }
-    
-    .protocol-item.free {
-        border-left: 6px solid #FFD700;
-    }
-    
-    .protocol-item.locked {
-        opacity: 0.75;
-        background: #e0e7ed;
-    }
-    
-    .protocol-badge {
-        background: #FFD700;
-        color: #0B1C3F;
-        border-radius: 40px;
-        padding: 4px 12px;
-        font-weight: bold;
-        font-size: 0.8rem;
-    }
-    
-    .tier-badge {
-        background: #0B1C3F;
-        color: #FFD700;
-        border-radius: 20px;
-        padding: 2px 10px;
-        font-size: 0.7rem;
-        font-weight: 600;
-        margin-right: 8px;
-    }
-    
-    .photo-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 10px 0;
-    }
-    
-    .photo-thumb {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 16px;
-        border: 2px solid #FFD700;
-        position: relative;
-    }
-    
-    .photo-thumb-container {
-        position: relative;
-        display: inline-block;
-    }
-    
-    .annotate-btn {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(11,28,63,0.8);
-        color: #FFD700;
-        font-size: 0.6rem;
-        text-align: center;
-        border-radius: 0 0 16px 16px;
-        cursor: pointer;
-    }
-    
-    .modal {
-        position: fixed;
-        top: 0; 
-        left: 0; 
-        width: 100%; 
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        visibility: hidden;
-        opacity: 0;
-        transition: 0.2s;
-    }
-    
-    .modal.show {
-        visibility: visible;
-        opacity: 1;
-    }
-    
-    .modal-content {
-        background: white;
-        max-width: 90%;
-        width: 400px;
-        padding: 20px;
-        border-radius: 48px;
-        border: 4px solid #FFD700;
-        max-height: 80vh;
-        overflow-y: auto;
-    }
-    
-    .annotation-modal {
-        width: 90%;
-        max-width: 800px;
-        background: #222;
-    }
-    
-    #annotation-canvas {
-        width: 100%;
-        background: #333;
-        border: 2px solid #FFD700;
-        border-radius: 16px;
-        cursor: crosshair;
-    }
-    
-    .toolbar {
-        display: flex;
-        gap: 8px;
-        margin: 8px 0;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .tool-btn {
-        background: #0B1C3F;
-        color: #FFD700;
-        border: 1px solid #FFD700;
-        padding: 8px 16px;
-        border-radius: 40px;
-        cursor: pointer;
-        font-size: 0.9rem;
-    }
-    
-    .tool-btn.active {
-        background: #FFD700;
-        color: #0B1C3F;
-    }
-    
-    .dimension-rating {
-        background: #f0f4fa;
-        border-radius: 16px;
-        padding: 12px;
-        margin: 12px 0;
-    }
-    
-    .rating-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 6px 0;
-    }
-    
-    .rating-item input {
-        width: 70px;
-        margin-left: 10px;
-        padding: 8px;
-        border-radius: 20px;
-    }
-    
-    #login-screen {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-height: 500px;
-    }
-    
-    /* Tablet and Desktop styles */
-    @media (min-width: 768px) {
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        
         body {
-            padding: 8px;
+            background: #f0f4f8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            width: 100%;
         }
         
         #app {
-            max-width: 480px;
-            border-radius: 36px 36px 24px 24px;
-            min-height: auto;
+            width: 100%;
+            max-width: 100%;
+            min-height: 100vh;
+            background: white;
+            border-radius: 0;
+            box-shadow: 0 20px 40px rgba(0, 31, 63, 0.25);
+            border: 1px solid rgba(255,215,0,0.3);
+            position: relative;
+            background-image: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.98) 100%),
+                              url('https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=800');
+            background-size: cover;
+            background-blend-mode: overlay;
         }
-    }
-</style>
+        
+        .header {
+            background: rgba(11, 28, 63, 0.95);
+            color: white;
+            padding: 20px 20px 12px;
+            backdrop-filter: blur(2px);
+            border-bottom: 3px solid #FFD700;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        
+        .header h1 span {
+            color: #FFD700;
+            font-weight: 300;
+            font-size: 1rem;
+            display: block;
+        }
+        
+        .header .byline {
+            font-size: 0.85rem;
+            color: #b0c4de;
+            margin-top: 4px;
+            border-left: 3px solid #FFD700;
+            padding-left: 10px;
+        }
+        
+        .screen-container {
+            padding: 20px 16px 80px;
+            min-height: 500px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            width: 100%;
+        }
+        
+        .screen {
+            display: none;
+            width: 100%;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(11, 28, 63, 0.98);
+            padding: 8px 4px 12px;
+            border-top: 2px solid #FFD700;
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .nav-item {
+            color: #a0b9d4;
+            text-align: center;
+            font-size: 0.7rem;
+            flex: 1;
+            padding: 6px 0;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .nav-item i {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 2px;
+            color: #a0b9d4;
+        }
+        
+        .nav-item.active {
+            color: #FFD700;
+            background: rgba(255,215,0,0.1);
+        }
+        
+        .nav-item.active i {
+            color: #FFD700;
+        }
+        
+        .btn {
+            background: #0B1C3F;
+            border: none;
+            color: white;
+            padding: 14px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin: 8px 0;
+            border: 1px solid #FFD700;
+            box-shadow: 0 4px 6px rgba(0,31,63,0.3);
+            cursor: pointer;
+        }
+        
+        .btn-secondary {
+            background: #7C9EB2;
+            border-color: #0B1C3F;
+        }
+        
+        .btn-gold {
+            background: #FFD700;
+            color: #0B1C3F;
+            border: 1px solid #0B1C3F;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 10px rgba(0,31,63,0.1);
+            border-left: 6px solid #FFD700;
+            width: 100%;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #7C9EB2;
+            border-radius: 40px;
+            font-size: 1rem;
+            margin: 8px 0;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        label {
+            font-weight: 600;
+            color: #0B1C3F;
+            margin-left: 8px;
+        }
+        
+        .protocol-item {
+            background: rgba(124,158,178,0.1);
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin: 6px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #7C9EB2;
+            cursor: pointer;
+        }
+        
+        .protocol-item.free {
+            border-left: 6px solid #FFD700;
+        }
+        
+        .protocol-item.locked {
+            opacity: 0.75;
+            background: #e0e7ed;
+        }
+        
+        .protocol-badge {
+            background: #FFD700;
+            color: #0B1C3F;
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        
+        .tier-badge {
+            background: #0B1C3F;
+            color: #FFD700;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .footer-links {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            background: rgba(255,255,255,0.5);
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        .footer-links a {
+            color: #0B1C3F;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                padding: 8px;
+            }
+            
+            #app {
+                max-width: 480px;
+                border-radius: 36px 36px 24px 24px;
+                min-height: auto;
+            }
+        }
+    </style>
 </head>
 <body>
 <div id="app">
@@ -439,8 +324,11 @@
                 <label>Select protocol</label>
                 <select id="inspection-protocol"></select>
                 
-                <!-- Rating section with per‑item photos -->
                 <div id="rating-section" style="margin-top: 20px;"></div>
+
+                <label>Photos <small>(tap to add, max 3 per dimension)</small></label>
+                <input type="file" id="photo-input" accept="image/*" capture="camera" multiple>
+                <div class="photo-grid" id="photo-preview"></div>
 
                 <button class="btn btn-gold" id="generate-report-btn"><i class="fas fa-file-pdf"></i> Generate Report & Save</button>
             </div>
@@ -475,57 +363,38 @@
         <div class="nav-item" data-screen="reports"><i class="fas fa-file-alt"></i>Reports</div>
         <div class="nav-item" data-screen="profile"><i class="fas fa-user"></i>Profile</div>
     </div>
-</div>
 
-<!-- UPGRADE MODAL -->
-<div id="upgrade-modal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:#0B1C3F;">🔒 Protocol Locked</h3>
-        <p>This protocol is available in Pro tier. Upgrade to access all 38 protocols.</p>
-        <button class="btn btn-gold" id="modal-upgrade">Upgrade (coming soon)</button>
-        <button class="btn" id="modal-close">Close</button>
-    </div>
-</div>
-
-<!-- ANNOTATION MODAL -->
-<div id="annotation-modal" class="modal">
-    <div class="modal-content annotation-modal" style="background:#2d2d2d; color:white;">
-        <h3 style="color:#FFD700;">Annotate Photo</h3>
-        <canvas id="annotation-canvas" width="400" height="300"></canvas>
-        <div class="toolbar">
-            <button class="tool-btn" id="tool-rect">Rectangle</button>
-            <button class="tool-btn" id="tool-circle">Circle</button>
-            <button class="tool-btn" id="tool-text">Text</button>
-            <button class="tool-btn" id="tool-save">Save & Close</button>
-            <button class="tool-btn" id="tool-cancel">Cancel</button>
-        </div>
-        <p style="font-size:0.8rem; margin-top:8px;">Rect: red, Circle: blue, Text: white. Click to draw.</p>
+    <!-- FOOTER LINKS -->
+    <div class="footer-links">
+        <a href="/about.html">About</a> |
+        <a href="/privacy.html">Privacy</a> |
+        <a href="/terms.html">Terms</a> |
+        <a href="/refund.html">Refund</a>
+        <p style="margin-top: 5px; color: #666;">© 2026 Property Inspection Profit System™ · By Ali Sekhr</p>
     </div>
 </div>
 
 <script>
 (function() {
     // ==================== CONFIG ====================
-    const API_BASE = 'https://your-backend.com/api';  // Replace with your backend URL
-    const USE_REAL_API = false; // Set to true when backend is ready
+    const API_BASE = 'https://your-backend.com/api';
+    const USE_REAL_API = false;
 
     // ==================== MOCK PROTOCOLS ====================
     const protocolsData = [
-        { id: 1, tier: 'T1', code: 'P01', name: 'Strategic Assessment Protocol', description: 'Strategic property assessment', weight: '2.0', free: true, dimensions: [
+        { id: 1, tier: 'T1', name: 'Strategic Assessment Protocol', description: 'Strategic property assessment', weight: '2.0', free: true, dimensions: [
             { name: 'Location Analysis', items: ['Transport Links', 'Local Amenities', 'Employment Hubs'], redFlags: ['High crime area'] },
             { name: 'Market Positioning', items: ['Price Point', 'Target Demographic'], redFlags: ['Overpriced'] }
         ]},
-        { id: 2, tier: 'T1', code: 'P02', name: 'Foundation Assessment Protocol', description: 'Foundation integrity', weight: '2.0', free: true, dimensions: [
+        { id: 2, tier: 'T1', name: 'Foundation Assessment Protocol', description: 'Foundation integrity', weight: '2.0', free: true, dimensions: [
             { name: 'Foundation Type', items: ['Type identified', 'Construction quality'], redFlags: ['Cracks >5mm'] }
         ]},
-        { id: 3, tier: 'T1', code: 'P03', name: 'Structural Movement', description: 'Subsidence risks', weight: '2.0', free: true, dimensions: [] },
-        { id: 4, tier: 'T1', code: 'P04', name: 'Environmental Hazards', description: 'Contamination', weight: '2.0', free: false, dimensions: [] },
-        { id: 5, tier: 'T1', code: 'P05', name: 'Investment Analysis', description: 'Financial analysis', weight: '2.0', free: false, dimensions: [] },
-        { id: 6, tier: 'T1', code: 'P06', name: 'Comparable Analysis', description: 'Market comparison', weight: '2.0', free: false, dimensions: [] }
+        { id: 3, tier: 'T1', name: 'Structural Movement', description: 'Subsidence risks', weight: '2.0', free: true, dimensions: [] },
+        { id: 4, tier: 'T1', name: 'Environmental Hazards', description: 'Contamination', weight: '2.0', free: false, dimensions: [] },
     ];
-    const protocols = protocolsData.map(p => ({ ...p, free: p.free }));
+    const protocols = protocolsData;
 
-    // LocalStorage keys
+    // ==================== LOCALSTORAGE ====================
     const STORAGE_USER = 'pips_user';
     const STORAGE_INSPECTIONS = 'pips_inspections';
     const STORAGE_TOKEN = 'pips_token';
@@ -540,6 +409,7 @@
         const inspJson = localStorage.getItem(STORAGE_INSPECTIONS);
         inspections = inspJson ? JSON.parse(inspJson) : [];
     }
+    
     function saveLocalData() {
         localStorage.setItem(STORAGE_USER, JSON.stringify(currentUser));
         localStorage.setItem(STORAGE_INSPECTIONS, JSON.stringify(inspections));
@@ -547,23 +417,10 @@
 
     loadLocalData();
 
-    // ==================== API CLIENT STUB ====================
+    // ==================== API STUB ====================
     const api = {
         async login(email, password) {
-            if (USE_REAL_API) {
-                const res = await fetch(`${API_BASE}/auth/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-                if (!res.ok) throw new Error('Login failed');
-                const data = await res.json();
-                authToken = data.token;
-                localStorage.setItem(STORAGE_TOKEN, authToken);
-                return data.user;
-            } else {
-                return { id: 1, email, name: email.split('@')[0], tier: 'freemium' };
-            }
+            return { id: 1, email, name: email.split('@')[0], tier: 'freemium' };
         },
         async register(email, password) {
             return this.login(email, password);
@@ -578,17 +435,15 @@
             saveLocalData();
             return assessment;
         },
-        async saveRating(data) { console.log('Saved rating (local)', data); },
-        async getAssessment(id) { return inspections.find(a => a.id === id); },
-        async getPhotoUploadUrl() { return { url: '#', key: 'mock' }; },
-        async confirmPhotoUpload() { console.log('Photo confirmed'); }
+        async saveRating(data) {
+            console.log('Saved rating (local)', data);
+        },
+        async getAssessment(id) {
+            return inspections.find(a => a.id === id);
+        }
     };
 
-    // ==================== UI STATE ====================
-    let currentAssessmentId = null;
-    let currentItemPhotos = {}; // key: `${dimIdx}_${itemIdx}`
-
-    // ==================== RENDER FUNCTIONS ====================
+    // ==================== UI FUNCTIONS ====================
     function showScreen(screenId) {
         document.querySelectorAll('.screen-container > .screen').forEach(s => s.classList.remove('active'));
         if (screenId === 'login') {
@@ -630,26 +485,11 @@
                 <button class="btn delete-report-btn" data-index="${index}" style="padding:6px; background:#b22222;">Delete</button>
             </div>
         `).join('');
-        document.querySelectorAll('.view-report-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = e.target.dataset.index;
-                generatePDF(inspections[idx], true);
-            });
-        });
-        document.querySelectorAll('.delete-report-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = e.target.dataset.index;
-                inspections.splice(idx, 1);
-                saveLocalData();
-                updateReportsList();
-                updateDashboard();
-            });
-        });
     }
 
     function updateProfile() {
         document.getElementById('profile-email').innerText = currentUser?.email || '';
-        document.getElementById('sub-tier').innerText = currentUser?.tier === 'pro' ? 'Pro (unlimited)' : 'Freemium (3 protocols)';
+        document.getElementById('sub-tier').innerText = currentUser?.tier === 'pro' ? 'Pro' : 'Freemium (3 protocols)';
     }
 
     function populateProtocolSelect() {
@@ -661,128 +501,7 @@
             option.textContent = `${p.name} (${p.tier})`;
             select.appendChild(option);
         });
-        select.addEventListener('change', (e) => {
-            renderRatingSection(parseInt(e.target.value));
-        });
-        renderRatingSection(parseInt(select.value));
     }
-
-    function renderRatingSection(protocolId) {
-        const protocol = protocols.find(p => p.id === protocolId);
-        if (!protocol || !protocol.dimensions) return;
-        const container = document.getElementById('rating-section');
-        let html = '<h4>Rate Assessment Items (0-10)</h4>';
-        protocol.dimensions.forEach((dim, dimIdx) => {
-            html += `<div class="dimension-rating"><strong>${dim.name}</strong>`;
-            if (dim.items && dim.items.length) {
-                dim.items.forEach((item, itemIdx) => {
-                    const itemId = `rating_${dimIdx}_${itemIdx}`;
-                    html += `<div class="rating-item" id="item-${dimIdx}-${itemIdx}">`;
-                    html += `<div class="rating-item-header"><span>${item}</span> <input type="number" min="0" max="10" step="1" value="5" id="${itemId}"></div>`;
-                    html += `<div class="item-photos" id="photo-area-${dimIdx}-${itemIdx}">`;
-                    html += `<div class="photo-grid" id="photo-grid-${dimIdx}-${itemIdx}"></div>`;
-                    html += `<button class="add-photo-btn" data-dim="${dimIdx}" data-item="${itemIdx}"><i class="fas fa-camera"></i> Add Photos (max 3)</button>`;
-                    html += `</div>`;
-                    html += `</div>`;
-                });
-            } else {
-                html += '<p>No items defined.</p>';
-            }
-            html += '</div>';
-        });
-        container.innerHTML = html;
-
-        document.querySelectorAll('.add-photo-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const dimIdx = e.target.dataset.dim;
-                const itemIdx = e.target.dataset.item;
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'image/*';
-                input.multiple = true;
-                input.onchange = (event) => handleItemPhotoSelect(event, dimIdx, itemIdx);
-                input.click();
-            });
-        });
-    }
-
-    function handleItemPhotoSelect(event, dimIdx, itemIdx) {
-        const files = Array.from(event.target.files);
-        const key = `${dimIdx}_${itemIdx}`;
-        if (!currentItemPhotos[key]) currentItemPhotos[key] = [];
-        const remainingSlots = 3 - currentItemPhotos[key].length;
-        const filesToAdd = files.slice(0, remainingSlots);
-        filesToAdd.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const photoObj = {
-                    dataURL: e.target.result,
-                    annotatedDataURL: null,
-                    file
-                };
-                currentItemPhotos[key].push(photoObj);
-                renderItemPhotos(dimIdx, itemIdx);
-            };
-            reader.readAsDataURL(file);
-        });
-    }
-
-    function renderItemPhotos(dimIdx, itemIdx) {
-        const key = `${dimIdx}_${itemIdx}`;
-        const photos = currentItemPhotos[key] || [];
-        const grid = document.getElementById(`photo-grid-${dimIdx}-${itemIdx}`);
-        if (!grid) return;
-        grid.innerHTML = '';
-        photos.forEach((photo, idx) => {
-            const container = document.createElement('div');
-            container.className = 'photo-thumb-container';
-            container.innerHTML = `<img src="${photo.annotatedDataURL || photo.dataURL}" class="photo-thumb"><div class="annotate-btn" data-dim="${dimIdx}" data-item="${itemIdx}" data-photo="${idx}">Annotate</div>`;
-            grid.appendChild(container);
-        });
-        grid.querySelectorAll('.annotate-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const d = e.target.dataset.dim;
-                const i = e.target.dataset.item;
-                const p = e.target.dataset.photo;
-                annotatePhoto(d, i, p);
-            });
-        });
-    }
-
-    let currentAnnotation = { dimIdx: null, itemIdx: null, photoIdx: null };
-    function annotatePhoto(dimIdx, itemIdx, photoIdx) {
-        currentAnnotation = { dimIdx, itemIdx, photoIdx };
-        const key = `${dimIdx}_${itemIdx}`;
-        const photo = currentItemPhotos[key][photoIdx];
-        const canvas = document.getElementById('annotation-canvas');
-        const ctx = canvas.getContext('2d');
-        const img = new Image();
-        img.onload = () => {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-        };
-        img.src = photo.dataURL;
-        document.getElementById('annotation-modal').classList.add('show');
-    }
-
-    document.getElementById('tool-save').addEventListener('click', () => {
-        const canvas = document.getElementById('annotation-canvas');
-        const annotatedDataURL = canvas.toDataURL('image/jpeg');
-        const { dimIdx, itemIdx, photoIdx } = currentAnnotation;
-        if (dimIdx !== null) {
-            const key = `${dimIdx}_${itemIdx}`;
-            if (currentItemPhotos[key] && currentItemPhotos[key][photoIdx]) {
-                currentItemPhotos[key][photoIdx].annotatedDataURL = annotatedDataURL;
-                renderItemPhotos(dimIdx, itemIdx);
-            }
-        }
-        document.getElementById('annotation-modal').classList.remove('show');
-    });
-
-    document.getElementById('tool-cancel').addEventListener('click', () => {
-        document.getElementById('annotation-modal').classList.remove('show');
-    });
 
     function generatePDF(inspectionData, download = true) {
         const { jsPDF } = window.jspdf;
@@ -800,19 +519,7 @@
         doc.text('Inspection Report', 20, 40);
         doc.setFontSize(11);
         doc.text(`Address: ${inspectionData.propertyAddress || 'N/A'}`, 20, 50);
-        doc.text(`Type: ${inspectionData.propertyType || 'House'} | Size: ${inspectionData.size || '?'} sq ft | Age: ${inspectionData.age || '?'} years`, 20, 60);
         doc.text(`Date: ${new Date(inspectionData.createdAt).toLocaleDateString()}`, 20, 80);
-        doc.text('Assessment Ratings:', 20, 100);
-        if (inspectionData.ratings && inspectionData.ratings.length) {
-            let y = 110;
-            inspectionData.ratings.forEach((r, i) => {
-                doc.text(`Item ${i+1}: ${r}/10`, 20, y);
-                y += 7;
-            });
-        } else {
-            doc.text('No ratings provided.', 20, 110);
-        }
-        doc.text('Photos captured per item.', 20, 200);
         doc.text('© Property Inspection Profit System™ · By Ali Sekhr', 105, 280, { align: 'center' });
         if (download) doc.save(`inspection_${Date.now()}.pdf`);
     }
@@ -838,18 +545,15 @@
         item.addEventListener('click', () => {
             const screen = item.dataset.screen;
             showScreen(screen);
-            if (screen === 'protocols') { 
-                document.getElementById('protocols-list-view').style.display = 'block';
-                document.getElementById('protocol-detail-view').style.display = 'none';
-            }
             if (screen === 'reports') updateReportsList();
             if (screen === 'profile') updateProfile();
-            if (screen === 'new-inspection') { populateProtocolSelect(); currentItemPhotos = {}; }
+            if (screen === 'new-inspection') populateProtocolSelect();
         });
     });
 
     document.getElementById('quick-new').addEventListener('click', () => showScreen('new-inspection'));
     document.getElementById('quick-reports').addEventListener('click', () => showScreen('reports'));
+    
     document.getElementById('logout-btn').addEventListener('click', () => {
         currentUser = null;
         localStorage.removeItem(STORAGE_USER);
@@ -863,16 +567,12 @@
         const age = document.getElementById('prop-age').value;
         const protocolId = parseInt(document.getElementById('inspection-protocol').value);
         const protocol = protocols.find(p => p.id === protocolId);
+        
         if (!protocol.free) {
             alert('This protocol is locked. Upgrade to Pro.');
             return;
         }
-        
-        const ratings = [];
-        document.querySelectorAll('#rating-section input[type="number"]').forEach(input => {
-            ratings.push(parseInt(input.value) || 5);
-        });
-        
+
         const newAssessment = {
             id: inspections.length + 1,
             propertyAddress: address,
@@ -881,31 +581,23 @@
             age,
             protocolId,
             protocolName: protocol.name,
-            ratings,
-            photosByItem: currentItemPhotos,
             createdAt: new Date().toISOString(),
             userId: currentUser.id
         };
+        
         inspections.push(newAssessment);
         saveLocalData();
         generatePDF(newAssessment, true);
         updateDashboard();
         updateReportsList();
+        
         document.getElementById('prop-address').value = '';
+        document.getElementById('photo-preview').innerHTML = '';
         document.getElementById('rating-section').innerHTML = '';
-        currentItemPhotos = {};
         alert('Inspection saved and PDF generated.');
     });
 
-    const upgradeModal = document.getElementById('upgrade-modal');
-    document.getElementById('modal-close').addEventListener('click', () => upgradeModal.classList.remove('show'));
-    document.getElementById('modal-upgrade').addEventListener('click', () => {
-        alert('Upgrade coming soon!');
-        upgradeModal.classList.remove('show');
-    });
-
-    window.showPurchaseModal = () => upgradeModal.classList.add('show');
-
+    // Initialize
     if (currentUser) {
         showScreen('dashboard');
         updateDashboard();
@@ -917,13 +609,5 @@
     }
 })();
 </script>
-<!-- Footer with all links -->
-<div style="text-align: center; padding: 10px; font-size: 0.8rem; background: rgba(255,255,255,0.5); margin-top: 10px;">
-    <a href="/about.html" style="color: #0B1C3F; margin: 0 10px; text-decoration: none;">About</a> |
-    <a href="/privacy.html" style="color: #0B1C3F; margin: 0 10px; text-decoration: none;">Privacy</a> |
-    <a href="/terms.html" style="color: #0B1C3F; margin: 0 10px; text-decoration: none;">Terms</a> |
-    <a href="/refund.html" style="color: #0B1C3F; margin: 0 10px; text-decoration: none;">Refund</a>
-    <p style="margin-top: 5px; color: #666;">© 2026 Property Inspection Profit System™ · By Ali Sekhr</p>
-</div>
 </body>
 </html>
