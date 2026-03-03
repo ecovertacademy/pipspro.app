@@ -96,6 +96,7 @@
             position: sticky;
             bottom: 0;
             width: 100%;
+            z-index: 100;
         }
         
         .nav-item {
@@ -143,6 +144,12 @@
             cursor: pointer;
         }
         
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            width: auto;
+        }
+        
         .btn-secondary {
             background: #7C9EB2;
             border-color: #0B1C3F;
@@ -164,60 +171,227 @@
             width: 100%;
         }
         
-        input, textarea, select {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #7C9EB2;
-            border-radius: 40px;
-            font-size: 1rem;
-            margin: 8px 0;
-            background: rgba(255,255,255,0.9);
-        }
-        
-        label {
-            font-weight: 600;
-            color: #0B1C3F;
-            margin-left: 8px;
-        }
-        
-        .protocol-item {
-            background: rgba(124,158,178,0.1);
-            border-radius: 20px;
-            padding: 12px 16px;
-            margin: 6px 0;
+        .protocol-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            border: 1px solid #7C9EB2;
-            cursor: pointer;
+            align-items: center;
+            margin-bottom: 10px;
         }
         
-        .protocol-item.free {
-            border-left: 6px solid #FFD700;
-        }
-        
-        .protocol-item.locked {
-            opacity: 0.75;
-            background: #e0e7ed;
-        }
-        
-        .protocol-badge {
-            background: #FFD700;
-            color: #0B1C3F;
-            border-radius: 40px;
+        .protocol-tier {
+            background: #0B1C3F;
+            color: #FFD700;
             padding: 4px 12px;
-            font-weight: bold;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .protocol-weight {
+            background: #7C9EB2;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
         }
         
-        .tier-badge {
+        .dimension-card {
+            background: #f8fafd;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 16px 0;
+            border-left: 4px solid #7C9EB2;
+        }
+        
+        .dimension-title {
+            font-weight: 700;
+            color: #0B1C3F;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        
+        .item-row {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #e0e7ed;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            color: #0B1C3F;
+        }
+        
+        .item-rating {
+            width: 70px;
+            padding: 6px;
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .red-flag-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .red-flag-checkbox input {
+            width: auto;
+            margin: 0;
+        }
+        
+        .item-photos {
+            margin-top: 12px;
+            padding: 12px;
+            background: #f0f4fa;
+            border-radius: 12px;
+        }
+        
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .photo-thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #FFD700;
+        }
+        
+        .photo-thumb-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .annotate-btn {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(11,28,63,0.8);
+            color: #FFD700;
+            font-size: 0.6rem;
+            text-align: center;
+            padding: 4px;
+            border-radius: 0 0 12px 12px;
+            cursor: pointer;
+        }
+        
+        .add-photo-btn {
+            background: #7C9EB2;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        
+        .save-draft-btn {
+            background: #7C9EB2;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 16px 0;
+            width: 100%;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+        }
+        
+        .modal.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 90%;
+            width: 400px;
+            padding: 20px;
+            border-radius: 48px;
+            border: 4px solid #FFD700;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .annotation-modal {
+            width: 90%;
+            max-width: 800px;
+            background: #222;
+        }
+        
+        #annotation-canvas {
+            width: 100%;
+            background: #333;
+            border: 2px solid #FFD700;
+            border-radius: 16px;
+            cursor: crosshair;
+        }
+        
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .tool-btn {
             background: #0B1C3F;
             color: #FFD700;
+            border: 1px solid #FFD700;
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .tool-btn.active {
+            background: #FFD700;
+            color: #0B1C3F;
+        }
+        
+        .resume-badge {
+            background: #FFD700;
+            color: #0B1C3F;
+            padding: 4px 8px;
             border-radius: 20px;
-            padding: 2px 10px;
             font-size: 0.7rem;
-            font-weight: 600;
-            margin-right: 8px;
+            margin-left: 8px;
         }
         
         .footer-links {
@@ -235,8 +409,19 @@
             text-decoration: none;
         }
         
-        .footer-links a:hover {
-            text-decoration: underline;
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e7ed;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #FFD700;
+            border-radius: 4px;
+            width: 0%;
         }
         
         @media (min-width: 768px) {
@@ -286,9 +471,11 @@
             </div>
             <div class="card">
                 <h4>Recent inspections</h4>
-                <ul id="recent-list" style="list-style:none;">
-                    <li>Loading...</li>
-                </ul>
+                <ul id="recent-list" style="list-style:none;"></ul>
+            </div>
+            <div class="card">
+                <h4>Draft inspections</h4>
+                <ul id="draft-list" style="list-style:none;"></ul>
             </div>
         </div>
 
@@ -307,8 +494,8 @@
 
         <!-- NEW INSPECTION -->
         <div id="new-inspection-screen" class="screen">
-            <h3 style="color:#0B1C3F;">🏠 New Inspection</h3>
             <div class="card">
+                <h3>🏠 New Inspection</h3>
                 <label>Property address</label>
                 <input type="text" id="prop-address" placeholder="e.g., 123 Main St">
                 <label>Property type</label>
@@ -324,13 +511,19 @@
                 <label>Select protocol</label>
                 <select id="inspection-protocol"></select>
                 
-                <div id="rating-section" style="margin-top: 20px;"></div>
-
-                <label>Photos <small>(tap to add, max 3 per dimension)</small></label>
-                <input type="file" id="photo-input" accept="image/*" capture="camera" multiple>
-                <div class="photo-grid" id="photo-preview"></div>
-
-                <button class="btn btn-gold" id="generate-report-btn"><i class="fas fa-file-pdf"></i> Generate Report & Save</button>
+                <div id="progress-section" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <p id="progress-text">0% complete</p>
+                </div>
+                
+                <div id="inspection-content"></div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="btn btn-secondary btn-small" id="save-draft-btn"><i class="fas fa-save"></i> Save Draft</button>
+                    <button class="btn btn-gold btn-small" id="complete-inspection-btn"><i class="fas fa-check"></i> Complete</button>
+                </div>
             </div>
         </div>
 
@@ -348,9 +541,6 @@
                 <p><strong>Subscription Tier:</strong> <span id="sub-tier">Freemium (3 protocols)</span></p>
                 <p><small>Upgrades coming soon – stay tuned!</small></p>
                 <button class="btn btn-secondary" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log out</button>
-            </div>
-            <div class="card">
-                <p style="text-align:center;">🚀 “Property Inspection Profit System™”<br>By Ali Sekhr</p>
             </div>
         </div>
     </div>
@@ -374,74 +564,254 @@
     </div>
 </div>
 
+<!-- UPGRADE MODAL -->
+<div id="upgrade-modal" class="modal">
+    <div class="modal-content">
+        <h3 style="color:#0B1C3F;">🔒 Protocol Locked</h3>
+        <p id="modal-text">This protocol requires Pro tier access.</p>
+        <button class="btn btn-gold" id="modal-upgrade">Upgrade (coming soon)</button>
+        <button class="btn" id="modal-close">Close</button>
+    </div>
+</div>
+
+<!-- ANNOTATION MODAL -->
+<div id="annotation-modal" class="modal">
+    <div class="modal-content annotation-modal" style="background:#2d2d2d; color:white;">
+        <h3 style="color:#FFD700;">Annotate Photo</h3>
+        <canvas id="annotation-canvas" width="400" height="300"></canvas>
+        <div class="toolbar">
+            <button class="tool-btn" id="tool-rect">Rectangle</button>
+            <button class="tool-btn" id="tool-circle">Circle</button>
+            <button class="tool-btn" id="tool-text">Text</button>
+            <button class="tool-btn" id="tool-save">Save & Close</button>
+            <button class="tool-btn" id="tool-cancel">Cancel</button>
+        </div>
+        <p style="font-size:0.8rem;">Rect: red, Circle: blue, Text: white. Click to draw.</p>
+    </div>
+</div>
+
 <script>
 (function() {
-    // ==================== CONFIG ====================
-    const API_BASE = 'https://your-backend.com/api';
-    const USE_REAL_API = false;
-
-    // ==================== MOCK PROTOCOLS ====================
+    // ==================== COMPLETE PROTOCOLS DATA ====================
     const protocolsData = [
-        { id: 1, tier: 'T1', name: 'Strategic Assessment Protocol', description: 'Strategic property assessment', weight: '2.0', free: true, dimensions: [
-            { name: 'Location Analysis', items: ['Transport Links', 'Local Amenities', 'Employment Hubs'], redFlags: ['High crime area'] },
-            { name: 'Market Positioning', items: ['Price Point', 'Target Demographic'], redFlags: ['Overpriced'] }
-        ]},
-        { id: 2, tier: 'T1', name: 'Foundation Assessment Protocol', description: 'Foundation integrity', weight: '2.0', free: true, dimensions: [
-            { name: 'Foundation Type', items: ['Type identified', 'Construction quality'], redFlags: ['Cracks >5mm'] }
-        ]},
-        { id: 3, tier: 'T1', name: 'Structural Movement', description: 'Subsidence risks', weight: '2.0', free: true, dimensions: [] },
-        { id: 4, tier: 'T1', name: 'Environmental Hazards', description: 'Contamination', weight: '2.0', free: false, dimensions: [] },
+        // TIER 1 - Critical Foundation (6 protocols)
+        { 
+            id: 1, tier: 'T1', name: 'Strategic Assessment Protocol', 
+            description: 'Introduction to strategic property assessment methodology and framework',
+            weight: '2.0', free: true,
+            dimensions: [
+                { 
+                    name: 'Location Analysis',
+                    items: [
+                        'Transport Links: Proximity to public transport',
+                        'Local Amenities: Access to shops, schools, services',
+                        'Employment Hubs: Distance to major employment areas',
+                        'Future Development: Planned infrastructure and regeneration',
+                        'Area Reputation: Desirability and perception of location'
+                    ],
+                    redFlags: [
+                        'HIGH: High Crime Area: Location in high-crime neighborhood',
+                        'MEDIUM: Poor Transport Access: Limited public transport options',
+                        'HIGH: Declining Area: Evidence of area decline or deprivation'
+                    ]
+                },
+                {
+                    name: 'Market Positioning',
+                    items: [
+                        'Price Point: Property price relative to local market',
+                        'Target Demographic: Suitability for target buyer/tenant',
+                        'Competition Analysis: Similar properties in area',
+                        'Market Trends: Local market direction and momentum'
+                    ],
+                    redFlags: [
+                        'HIGH: Overpriced: Property significantly overpriced for area',
+                        'MEDIUM: Limited Demand: Weak demand for property type in area'
+                    ]
+                }
+            ]
+        },
+        { 
+            id: 2, tier: 'T1', name: 'Foundation Assessment Protocol', 
+            description: 'Comprehensive evaluation of foundation integrity and structural stability',
+            weight: '2.0', free: true,
+            dimensions: [
+                {
+                    name: 'Foundation Type & Construction',
+                    items: [
+                        'Foundation type identified (strip, raft, piled, etc.)',
+                        'Construction method and materials assessed',
+                        'Foundation depth and width evaluated',
+                        'Age and design standards considered',
+                        'Previous repairs or modifications documented'
+                    ],
+                    redFlags: [
+                        'CRITICAL: Unknown or inadequate foundation type for soil conditions',
+                        'HIGH: Evidence of poor construction quality or workmanship',
+                        'HIGH: Previous underpinning or foundation repairs'
+                    ]
+                },
+                {
+                    name: 'Settlement & Movement Assessment',
+                    items: [
+                        'Crack patterns analyzed (vertical, horizontal, diagonal)',
+                        'Crack widths measured and severity assessed',
+                        'Floor levels checked for differential settlement',
+                        'Door and window operation tested for distortion',
+                        'External ground levels and drainage slopes verified'
+                    ],
+                    redFlags: [
+                        'CRITICAL: Cracks wider than 5mm or progressive movement',
+                        'CRITICAL: Diagonal cracks at 45° angles (shear failure pattern)',
+                        'HIGH: Doors/windows binding or failing to close properly'
+                    ]
+                }
+            ]
+        },
+        { 
+            id: 3, tier: 'T1', name: 'Structural Movement & Subsidence Protocol', 
+            description: 'Assessment of structural movement, subsidence risks, and foundation settlement',
+            weight: '2.0', free: true,
+            dimensions: [
+                {
+                    name: 'Load-Bearing Elements',
+                    items: [
+                        'All load-bearing walls identified and inspected',
+                        'Columns and posts assessed for vertical alignment',
+                        'Beams and lintels checked for deflection or sagging',
+                        'Material condition evaluated (brick, concrete, steel, timber)',
+                        'Load paths traced from roof to foundations'
+                    ],
+                    redFlags: [
+                        'CRITICAL: Visible deflection or sagging in beams/lintels',
+                        'CRITICAL: Cracked or bulging load-bearing walls',
+                        'HIGH: Corroded steel beams or columns'
+                    ]
+                }
+            ]
+        },
+        { 
+            id: 4, tier: 'T1', name: 'Environmental Hazards Assessment Protocol', 
+            description: 'Identification and evaluation of environmental hazards and contamination risks',
+            weight: '2.0', free: false,
+            dimensions: [
+                {
+                    name: 'Flood Risk',
+                    items: [
+                        'Flood Zone: EA flood zone classification',
+                        'Historical Flooding: Past flooding events in area',
+                        'Drainage Systems: Quality of local drainage',
+                        'Flood Defenses: Presence of flood protection',
+                        'Insurance Availability: Ease of obtaining flood insurance'
+                    ],
+                    redFlags: [
+                        'CRITICAL: Flood Zone 3: High flood risk area',
+                        'CRITICAL: Previous Flooding: Property has flooded before',
+                        'CRITICAL: No Flood Insurance: Cannot obtain flood insurance'
+                    ]
+                }
+            ]
+        },
+        { 
+            id: 5, tier: 'T1', name: 'Investment Analysis Protocol', 
+            description: 'Financial analysis and investment viability assessment',
+            weight: '2.0', free: false,
+            dimensions: [
+                {
+                    name: 'Purchase Costs',
+                    items: [
+                        'Purchase Price: Property acquisition cost',
+                        'Stamp Duty: SDLT or LBTT payable',
+                        'Legal Fees: Conveyancing and legal costs',
+                        'Survey Costs: Building survey and valuations',
+                        'Mortgage Fees: Arrangement and broker fees'
+                    ],
+                    redFlags: [
+                        'MEDIUM: High Transaction Costs: Fees exceed 5% of purchase price',
+                        'MEDIUM: Additional SDLT: Subject to higher SDLT rates'
+                    ]
+                }
+            ]
+        },
+        { 
+            id: 6, tier: 'T1', name: 'Comparable Analysis Protocol', 
+            description: 'Market comparison and property valuation analysis',
+            weight: '2.0', free: false,
+            dimensions: [
+                {
+                    name: 'Sales Comparables',
+                    items: [
+                        'Recent Sales: Sales within last 6 months',
+                        'Price per Sq Ft: Average price per square foot',
+                        'Property Condition: Condition vs comparables',
+                        'Location Adjustment: Premium/discount for location',
+                        'Market Trend: Price direction in area'
+                    ],
+                    redFlags: [
+                        'HIGH: Overpriced: Price >10% above comparables',
+                        'MEDIUM: Falling Prices: Recent sales showing decline'
+                    ]
+                }
+            ]
+        },
+        // TIER 2 (sample - add more as needed)
+        { 
+            id: 7, tier: 'T2', name: 'Site Analysis System', 
+            description: 'Comprehensive site evaluation including location, access, and site constraints',
+            weight: '1.75', free: false,
+            dimensions: [
+                {
+                    name: 'Surface Defense',
+                    items: [
+                        'Gutters and downpipes: adequate capacity for roof area',
+                        'Gutters: proper alignment and fall',
+                        'Surface drains: gullies at low points and channel drains where needed',
+                        'Land grading: ground falls away from building (minimum 1:60 gradient)',
+                        'Hardscaping: permeable surfaces where possible with proper drainage'
+                    ],
+                    redFlags: [
+                        'HIGH: Overflowing gutters or water pooling near walls',
+                        'HIGH: Inadequate drainage capacity',
+                        'CRITICAL: Ground slopes towards building'
+                    ]
+                }
+            ]
+        }
     ];
+
     const protocols = protocolsData;
 
-    // ==================== LOCALSTORAGE ====================
+    // ==================== LOCALSTORAGE KEYS ====================
     const STORAGE_USER = 'pips_user';
     const STORAGE_INSPECTIONS = 'pips_inspections';
+    const STORAGE_DRAFTS = 'pips_drafts';
     const STORAGE_TOKEN = 'pips_token';
 
+    // ==================== STATE ====================
     let currentUser = null;
     let inspections = [];
-    let authToken = localStorage.getItem(STORAGE_TOKEN);
+    let drafts = [];
+    let currentDraftId = null;
+    let currentItemPhotos = {};
 
+    // ==================== LOAD/SAVE ====================
     function loadLocalData() {
         const userJson = localStorage.getItem(STORAGE_USER);
         if (userJson) currentUser = JSON.parse(userJson);
+        
         const inspJson = localStorage.getItem(STORAGE_INSPECTIONS);
         inspections = inspJson ? JSON.parse(inspJson) : [];
+        
+        const draftsJson = localStorage.getItem(STORAGE_DRAFTS);
+        drafts = draftsJson ? JSON.parse(draftsJson) : [];
     }
     
     function saveLocalData() {
-        localStorage.setItem(STORAGE_USER, JSON.stringify(currentUser));
+        if (currentUser) localStorage.setItem(STORAGE_USER, JSON.stringify(currentUser));
         localStorage.setItem(STORAGE_INSPECTIONS, JSON.stringify(inspections));
+        localStorage.setItem(STORAGE_DRAFTS, JSON.stringify(drafts));
     }
 
     loadLocalData();
-
-    // ==================== API STUB ====================
-    const api = {
-        async login(email, password) {
-            return { id: 1, email, name: email.split('@')[0], tier: 'freemium' };
-        },
-        async register(email, password) {
-            return this.login(email, password);
-        },
-        async getProtocols() {
-            return protocols;
-        },
-        async createAssessment(data) {
-            const newId = inspections.length + 1;
-            const assessment = { id: newId, ...data, userId: currentUser.id, status: 'in_progress', createdAt: new Date() };
-            inspections.push(assessment);
-            saveLocalData();
-            return assessment;
-        },
-        async saveRating(data) {
-            console.log('Saved rating (local)', data);
-        },
-        async getAssessment(id) {
-            return inspections.find(a => a.id === id);
-        }
-    };
 
     // ==================== UI FUNCTIONS ====================
     function showScreen(screenId) {
@@ -462,10 +832,31 @@
 
     function updateDashboard() {
         document.getElementById('user-name').innerText = currentUser?.name || 'Inspector';
+        
+        const monthInspections = inspections.filter(i => new Date(i.createdAt).getMonth() === new Date().getMonth());
+        document.getElementById('month-count').innerText = monthInspections.length;
+
+        const recentList = document.getElementById('recent-list');
         const recent = inspections.slice(-3).reverse();
-        const list = document.getElementById('recent-list');
-        list.innerHTML = recent.length ? recent.map(i => `<li><i class="fas fa-home" style="color:#FFD700;"></i> ${i.propertyAddress || 'Unknown'} – ${new Date(i.createdAt).toLocaleDateString()}</li>`).join('') : '<li>No inspections yet</li>';
-        document.getElementById('month-count').innerText = inspections.filter(i => new Date(i.createdAt).getMonth() === new Date().getMonth()).length;
+        recentList.innerHTML = recent.length ? recent.map(i => 
+            `<li style="margin: 8px 0;"><i class="fas fa-home" style="color:#FFD700;"></i> ${i.propertyAddress || 'Unknown'} – ${new Date(i.createdAt).toLocaleDateString()}</li>`
+        ).join('') : '<li>No inspections yet</li>';
+
+        const draftList = document.getElementById('draft-list');
+        const activeDrafts = drafts.filter(d => d.status === 'draft');
+        draftList.innerHTML = activeDrafts.length ? activeDrafts.map(d => 
+            `<li style="margin: 8px 0; display: flex; justify-content: space-between; align-items: center;">
+                <span><i class="fas fa-pen" style="color:#FFD700;"></i> ${d.propertyAddress || 'Unknown'}</span>
+                <button class="btn-small resume-draft" data-id="${d.id}" style="padding: 4px 8px; font-size: 0.7rem;">Resume</button>
+            </li>`
+        ).join('') : '<li>No draft inspections</li>';
+
+        document.querySelectorAll('.resume-draft').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const draftId = e.target.dataset.id;
+                resumeDraft(draftId);
+            });
+        });
     }
 
     function updateReportsList() {
@@ -480,134 +871,67 @@
                     <span><i class="fas fa-map-pin"></i> ${insp.propertyAddress || 'N/A'}</span>
                     <span>${new Date(insp.createdAt).toLocaleDateString()}</span>
                 </div>
-                <p>${insp.propertyType || 'House'}, ${insp.size || '?'} sq ft</p>
+                <p>${insp.propertyType || 'House'} · ${insp.protocolName || 'Standard Protocol'}</p>
                 <button class="btn btn-secondary view-report-btn" data-index="${index}" style="padding:6px; font-size:0.9rem;">View PDF</button>
                 <button class="btn delete-report-btn" data-index="${index}" style="padding:6px; background:#b22222;">Delete</button>
             </div>
         `).join('');
+
+        document.querySelectorAll('.view-report-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = e.target.dataset.index;
+                generatePDF(inspections[idx], true);
+            });
+        });
+
+        document.querySelectorAll('.delete-report-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = e.target.dataset.index;
+                inspections.splice(idx, 1);
+                saveLocalData();
+                updateReportsList();
+                updateDashboard();
+            });
+        });
     }
 
     function updateProfile() {
         document.getElementById('profile-email').innerText = currentUser?.email || '';
-        document.getElementById('sub-tier').innerText = currentUser?.tier === 'pro' ? 'Pro' : 'Freemium (3 protocols)';
+        document.getElementById('sub-tier').innerText = 'Freemium (3 protocols)';
     }
 
     function populateProtocolSelect() {
         const select = document.getElementById('inspection-protocol');
-        select.innerHTML = '';
+        select.innerHTML = '<option value="">Select a protocol...</option>';
         protocols.forEach(p => {
             const option = document.createElement('option');
             option.value = p.id;
-            option.textContent = `${p.name} (${p.tier})`;
+            option.textContent = `${p.name} (${p.tier}) ${p.free ? '' : '🔒'}`;
             select.appendChild(option);
         });
     }
 
-    function generatePDF(inspectionData, download = true) {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        doc.setFillColor(11, 28, 63);
-        doc.rect(0, 0, 210, 30, 'F');
-        doc.setTextColor(255, 215, 0);
-        doc.setFontSize(16);
-        doc.text('PIPS Pro™', 105, 15, { align: 'center' });
-        doc.setFontSize(10);
-        doc.setTextColor(255,255,255);
-        doc.text('Property Inspection Profit System', 105, 22, { align: 'center' });
-        doc.setTextColor(0,0,0);
-        doc.setFontSize(14);
-        doc.text('Inspection Report', 20, 40);
-        doc.setFontSize(11);
-        doc.text(`Address: ${inspectionData.propertyAddress || 'N/A'}`, 20, 50);
-        doc.text(`Date: ${new Date(inspectionData.createdAt).toLocaleDateString()}`, 20, 80);
-        doc.text('© Property Inspection Profit System™ · By Ali Sekhr', 105, 280, { align: 'center' });
-        if (download) doc.save(`inspection_${Date.now()}.pdf`);
-    }
+    function renderInspection(protocolId, draftData = null) {
+        const protocol = protocols.find(p => p.id == protocolId);
+        if (!protocol) return;
 
-    // ==================== EVENT LISTENERS ====================
-    document.getElementById('login-btn').addEventListener('click', async () => {
-        const email = document.getElementById('login-email').value;
-        const pass = document.getElementById('login-password').value;
-        currentUser = { id: 1, email, name: email.split('@')[0], tier: 'freemium' };
-        localStorage.setItem(STORAGE_USER, JSON.stringify(currentUser));
-        showScreen('dashboard');
-        updateDashboard();
-        updateReportsList();
-        updateProfile();
-        populateProtocolSelect();
-    });
-
-    document.getElementById('register-btn').addEventListener('click', async () => {
-        document.getElementById('login-btn').click();
-    });
-
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const screen = item.dataset.screen;
-            showScreen(screen);
-            if (screen === 'reports') updateReportsList();
-            if (screen === 'profile') updateProfile();
-            if (screen === 'new-inspection') populateProtocolSelect();
-        });
-    });
-
-    document.getElementById('quick-new').addEventListener('click', () => showScreen('new-inspection'));
-    document.getElementById('quick-reports').addEventListener('click', () => showScreen('reports'));
-    
-    document.getElementById('logout-btn').addEventListener('click', () => {
-        currentUser = null;
-        localStorage.removeItem(STORAGE_USER);
-        showScreen('login');
-    });
-
-    document.getElementById('generate-report-btn').addEventListener('click', async () => {
-        const address = document.getElementById('prop-address').value;
-        const type = document.getElementById('prop-type').value;
-        const size = document.getElementById('prop-size').value;
-        const age = document.getElementById('prop-age').value;
-        const protocolId = parseInt(document.getElementById('inspection-protocol').value);
-        const protocol = protocols.find(p => p.id === protocolId);
-        
-        if (!protocol.free) {
-            alert('This protocol is locked. Upgrade to Pro.');
+        if (!protocol.free && currentUser?.tier !== 'pro') {
+            showUpgradeModal(protocol.name);
             return;
         }
 
-        const newAssessment = {
-            id: inspections.length + 1,
-            propertyAddress: address,
-            propertyType: type,
-            size,
-            age,
-            protocolId,
-            protocolName: protocol.name,
-            createdAt: new Date().toISOString(),
-            userId: currentUser.id
-        };
-        
-        inspections.push(newAssessment);
-        saveLocalData();
-        generatePDF(newAssessment, true);
-        updateDashboard();
-        updateReportsList();
-        
-        document.getElementById('prop-address').value = '';
-        document.getElementById('photo-preview').innerHTML = '';
-        document.getElementById('rating-section').innerHTML = '';
-        alert('Inspection saved and PDF generated.');
-    });
+        const container = document.getElementById('inspection-content');
+        let html = `<div class="protocol-header">
+            <span class="protocol-tier">${protocol.tier}</span>
+            <span class="protocol-weight">Weight: ${protocol.weight}</span>
+        </div>
+        <p style="margin-bottom: 16px;">${protocol.description}</p>`;
 
-    // Initialize
-    if (currentUser) {
-        showScreen('dashboard');
-        updateDashboard();
-        updateReportsList();
-        updateProfile();
-        populateProtocolSelect();
-    } else {
-        showScreen('login');
-    }
-})();
-</script>
-</body>
-</html>
+        protocol.dimensions.forEach((dim, dimIdx) => {
+            html += `<div class="dimension-card">
+                <div class="dimension-title">${dim.name}</div>`;
+
+            dim.items.forEach((item, itemIdx) => {
+                const itemId = `item_${protocolId}_${dimIdx}_${itemIdx}`;
+                const savedRating = draftData?.ratings?.[`${dimIdx}_${itemIdx}`] || 5;
+                const savedRed
